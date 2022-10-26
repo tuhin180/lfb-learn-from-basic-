@@ -16,7 +16,7 @@ const Footer = () => {
             >
               <img className="h-10" src={logo} alt="logo" />
               <span className="ml-2 text-xl font-bold tracking-wide text-yellow-400 uppercase">
-                LFC
+                LFB
               </span>
             </Link>
             <div className="mt-6 lg:max-w-sm">

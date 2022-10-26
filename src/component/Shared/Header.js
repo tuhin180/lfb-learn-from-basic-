@@ -21,7 +21,7 @@ const Header = () => {
             >
               <img className="h-8" src={logo} alt="" />
               <span className="ml-2 text-xl font-bold tracking-wide text-gray-100 uppercase">
-                LFC
+                LFB
               </span>
             </Link>
             <ul className="flex items-center hidden space-x-8 lg:flex">
