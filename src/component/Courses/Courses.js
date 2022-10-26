@@ -1,5 +1,6 @@
 import React from "react";
 import { Outlet, useLoaderData } from "react-router-dom";
+import AllCourses from "./AllCourses";
 import CourseCard from "./CourseCard";
 
 import LeftsideNav from "./LeftsideNav";
@@ -15,9 +16,7 @@ const Courses = () => {
 
       <div className="col-span-10">
         <Outlet></Outlet>
-        {allCourses.map((data) => (
-          <CourseCard key={data.id} data={data}></CourseCard>
-        ))}
+        {/* <AllCourses allCourses={allCourses}></AllCourses> */}
       </div>
     </div>
   );

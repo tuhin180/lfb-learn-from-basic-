@@ -8,6 +8,8 @@ import Login from "../component/Auth/Login";
 import Register from "../component/Auth/Register";
 import Courses from "../component/Courses/Courses";
 import Course from "../component/Courses/Course";
+import AllCourses from "../component/Courses/AllCourses";
+import DetailsComponent from "../component/Courses/DetailsComponent";
 
 const routes = createBrowserRouter([
   {
@@ -18,9 +20,14 @@ const routes = createBrowserRouter([
       { path: "/", element: <Home></Home> },
       {
         path: "/courses",
+        id: "allCourses",
         loader: () => fetch(`http://localhost:5000/course`),
         element: <Courses></Courses>,
         children: [
+          {
+            index: true,
+            element: <AllCourses></AllCourses>,
+          },
           {
             path: ":id",
             loader: ({ params }) =>
@@ -28,9 +35,18 @@ const routes = createBrowserRouter([
 
             element: <Course></Course>,
           },
+          {
+            path: "all",
+            element: <AllCourses></AllCourses>,
+          },
         ],
       },
-
+      {
+        path: "/course-details/:id",
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/course/${params.id}`),
+        element: <DetailsComponent></DetailsComponent>,
+      },
       { path: "/faq", element: <Faq></Faq> },
       { path: "/blog", element: <Blog></Blog> },
       { path: "/login", element: <Login></Login> },

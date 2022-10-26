@@ -17,6 +17,9 @@ const LeftsideNav = () => {
           <Link to={`/courses/${course.id}`}>{course.name}</Link>
         </p>
       ))}
+      <p className="m-2">
+        <Link to={`/courses/all`}>All</Link>
+      </p>
     </div>
   );
 };

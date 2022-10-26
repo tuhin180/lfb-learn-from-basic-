@@ -1,13 +1,13 @@
 import React from "react";
 import { useLoaderData } from "react-router-dom";
+import CourseCard from "./CourseCard";
 
 const Course = () => {
   const courseData = useLoaderData();
-  const { name } = courseData;
   console.log(courseData);
   return (
     <div>
-      <h1>kuk</h1>
+      <CourseCard data={courseData}></CourseCard>
     </div>
   );
 };
