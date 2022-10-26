@@ -7,6 +7,7 @@ import Blog from "../component/ohters/Blog";
 import Login from "../component/Auth/Login";
 import Register from "../component/Auth/Register";
 import Courses from "../component/Courses/Courses";
+import Course from "../component/Courses/Course";
 
 const routes = createBrowserRouter([
   {
@@ -15,7 +16,17 @@ const routes = createBrowserRouter([
     errorElement: <ErrorPage></ErrorPage>,
     children: [
       { path: "/", element: <Home></Home> },
-      { path: "/courses", element: <Courses></Courses> },
+      {
+        path: "/courses",
+        element: <Courses></Courses>,
+      },
+      {
+        path: "/course/:id",
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/course/${params.id}`),
+
+        element: <Course></Course>,
+      },
       { path: "/faq", element: <Faq></Faq> },
       { path: "/blog", element: <Blog></Blog> },
       { path: "/login", element: <Login></Login> },
