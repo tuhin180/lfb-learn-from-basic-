@@ -14,7 +14,7 @@ const LeftsideNav = () => {
       <h1 className="text-xl pb-4">All courses</h1>
       {courses.map((course) => (
         <p className="m-2" key={course.id}>
-          <Link to={`/course/${course.id}`}>{course.name}</Link>
+          <Link to={`/courses/${course.id}`}>{course.name}</Link>
         </p>
       ))}
     </div>

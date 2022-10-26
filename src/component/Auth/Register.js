@@ -1,21 +1,43 @@
 import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Register = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleName = (e) => {
+    setName(e.target.value);
+    console.log(e.target.value);
+  };
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
+    console.log(e.target.value);
+  };
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
+    console.log(e.target.value);
+  };
+  const handleSignUp = (e) => {
+    e.preventDefault();
+  };
   return (
     <div className="mt-10">
       <div className="mx-auto w-full max-w-md p-8 space-y-3 rounded-xl dark:bg-gray-900 dark:text-gray-100">
         <h1 className="text-2xl font-bold text-center">Sign UP</h1>
         <form
-          novalidate=""
+          noValidate=""
           action=""
           className="space-y-6 ng-untouched ng-pristine ng-valid"
         >
           <div className="space-y-1 text-sm">
-            <label for="username" className="block dark:text-gray-400">
+            <label htmlFor="username" className="block dark:text-gray-400">
               Full Name
             </label>
             <input
+              onBlur={handleName}
               type="text"
               name="username"
               id="username"
@@ -25,10 +47,11 @@ const Register = () => {
             />
           </div>
           <div className="space-y-1 text-sm">
-            <label for="userEmail" className="block dark:text-gray-400">
+            <label htmlFor="userEmail" className="block dark:text-gray-400">
               UserEmail
             </label>
             <input
+              onBlur={handleEmail}
               type="Email"
               name="userEmail"
               id="userEmail"
@@ -38,10 +61,11 @@ const Register = () => {
             />
           </div>
           <div className="space-y-1 text-sm">
-            <label for="password" className="block dark:text-gray-400">
+            <label htmlFor="password" className="block dark:text-gray-400">
               Password
             </label>
             <input
+              onBlur={handlePassword}
               type="password"
               name="password"
               id="password"
@@ -55,7 +79,10 @@ const Register = () => {
               </Link>
             </div>
           </div>
-          <button className="block w-full p-3 text-center rounded-sm dark:text-gray-900 dark:bg-violet-400">
+          <button
+            onClick={handleSignUp}
+            className="block w-full p-3 text-center rounded-sm dark:text-gray-900 dark:bg-violet-400"
+          >
             Sign up
           </button>
         </form>

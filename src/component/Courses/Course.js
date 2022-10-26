@@ -5,7 +5,11 @@ const Course = () => {
   const courseData = useLoaderData();
   const { name } = courseData;
   console.log(courseData);
-  return <div></div>;
+  return (
+    <div>
+      <h1>kuk</h1>
+    </div>
+  );
 };
 
 export default Course;
