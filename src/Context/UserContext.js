@@ -5,6 +5,9 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
+  updateProfile,
+  sendEmailVerification,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import app from "../firebase/firebase.config";
 import { useEffect } from "react";
@@ -29,6 +32,27 @@ const UserContext = ({ children }) => {
   const logOut = () => {
     signOut(auth);
   };
+
+  // 4.update profile
+  const userProfile = (name, image) => {
+    return updateProfile(auth.currentUser, {
+      displayName: name,
+      photoURL: image,
+    });
+  };
+
+  // 5. email verification
+  const verifyEmail = () => {
+    return sendEmailVerification(auth.currentUser);
+  };
+
+  // 6.forgot password
+  const forgotPassword = (email) => {
+    return sendPasswordResetEmail(auth, email);
+  };
+
+  // 7.google log in
+  const googleLogin = () => {};
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentuser) => {
       console.log(currentuser);
@@ -38,7 +62,15 @@ const UserContext = ({ children }) => {
     return () => unsubscribe;
   }, []);
 
-  const userInfo = { user, createUserWithEmail, userLogin, logOut };
+  const userInfo = {
+    user,
+    createUserWithEmail,
+    userLogin,
+    logOut,
+    userProfile,
+    verifyEmail,
+    forgotPassword,
+  };
   return (
     <AuthUserContext.Provider value={userInfo}>
       {children}
