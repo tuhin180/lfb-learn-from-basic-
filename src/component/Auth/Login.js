@@ -1,7 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { AuthUserContext } from "../../Context/UserContext";
 
 const Login = () => {
+  const { userLogin } = useContext(AuthUserContext);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState("");
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
+    console.log(e.target.value);
+  };
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
+    console.log(e.target.value);
+  };
+  const handleSignIn = (e) => {
+    e.preventDefault();
+    userLogin(email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(user);
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        setErrors(errorMessage);
+        toast.error(errors, { autoClose: 4000 });
+      });
+  };
   return (
     <div className="mt-10">
       <div className=" mx-auto w-full max-w-md p-8 space-y-3 rounded-xl dark:bg-gray-900 dark:text-gray-100">
@@ -12,15 +43,17 @@ const Login = () => {
           className="space-y-6 ng-untouched ng-pristine ng-valid"
         >
           <div className="space-y-1 text-sm">
-            <label htmlFor="username" className="block dark:text-gray-400">
-              Username
+            <label htmlFor="userEmail" className="block dark:text-gray-400">
+              UserEmail
             </label>
             <input
-              type="text"
-              name="username"
-              id="username"
-              placeholder="Username"
+              onBlur={handleEmail}
+              type="email"
+              name="userEmail"
+              id="userEmail"
+              placeholder="UserEmail"
               className="w-full px-4 py-3 rounded-md dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 focus:dark:border-violet-400"
+              required
             />
           </div>
           <div className="space-y-1 text-sm">
@@ -28,11 +61,13 @@ const Login = () => {
               Password
             </label>
             <input
+              onBlur={handlePassword}
               type="password"
               name="password"
               id="password"
               placeholder="Password"
               className="w-full px-4 py-3 rounded-md dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 focus:dark:border-violet-400"
+              required
             />
             <div className="flex justify-end text-xs dark:text-gray-400">
               <Link rel="noopener noreferrer" href="#">
@@ -40,7 +75,10 @@ const Login = () => {
               </Link>
             </div>
           </div>
-          <button className="block w-full p-3 text-center rounded-sm dark:text-gray-900 dark:bg-violet-400">
+          <button
+            onClick={handleSignIn}
+            className="block w-full p-3 text-center rounded-sm dark:text-gray-900 dark:bg-violet-400 focus:outline-none focus:ring focus:border-blue-500"
+          >
             Sign in
           </button>
         </form>
@@ -84,7 +122,7 @@ const Login = () => {
           Don't have an account?
           <Link
             rel="noopener noreferrer"
-            href="#"
+            to="/register"
             className="underline dark:text-gray-100"
           >
             Sign up

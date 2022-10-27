@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { AuthUserContext } from "../../Context/UserContext";
 
 const Register = () => {
+  const { createUserWithEmail } = useContext(AuthUserContext);
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState("");
 
   const handleName = (e) => {
     setName(e.target.value);
@@ -22,6 +26,20 @@ const Register = () => {
   };
   const handleSignUp = (e) => {
     e.preventDefault();
+    createUserWithEmail(email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(user);
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        setErrors(errorMessage);
+        toast.error(errors, { autoClose: 4000 });
+        // ..
+      });
   };
   return (
     <div className="mt-10">
@@ -81,7 +99,7 @@ const Register = () => {
           </div>
           <button
             onClick={handleSignUp}
-            className="block w-full p-3 text-center rounded-sm dark:text-gray-900 dark:bg-violet-400"
+            className="block w-full p-3 text-center rounded-sm dark:text-gray-900 dark:bg-violet-400 hover:bg-primary focus:outline-none focus:ring focus:border-blue-500"
           >
             Sign up
           </button>
@@ -123,13 +141,13 @@ const Register = () => {
           </button>
         </div>
         <p className="text-xs text-center sm:px-6 dark:text-gray-400">
-          Don't have an account?
+          Already have an account?
           <Link
             rel="noopener noreferrer"
-            href="#"
-            className="underline dark:text-gray-100"
+            to="/login"
+            className="underline dark:text-gray-100 "
           >
-            Sign up
+            Sign in
           </Link>
         </p>
       </div>

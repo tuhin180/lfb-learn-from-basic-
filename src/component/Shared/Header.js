@@ -4,10 +4,23 @@ import { Link } from "react-router-dom";
 import logo from "../../Assets/Images/logo.png";
 import { AuthUserContext } from "../../Context/UserContext";
 import { FaUserTie } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const Header = () => {
-  const { user } = useContext(AuthUserContext);
+  const { user, logOut } = useContext(AuthUserContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const handleSignOut = () => {
+    logOut()
+      .then(() => {
+        // Sign-out successful.
+      })
+      .catch((error) => {
+        toast.error(error, { autoClose: 4000 });
+        // An error happened.
+      });
+  };
+
   return (
     <div>
       <div className="bg-gray-900">
@@ -71,6 +84,7 @@ const Header = () => {
                 <>
                   <li>
                     <Link
+                      onBlur={handleSignOut}
                       to="/"
                       className="inline-flex items-center justify-center h-12 px-4 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
                       aria-label="Sign out"
