@@ -1,13 +1,14 @@
 import React from "react";
-import { id, Link, useLoaderData } from "react-router-dom";
+import { FaUserTie, FaClock, FaRegCheckCircle } from "react-icons/fa";
+import { Link, useLoaderData } from "react-router-dom";
 
 const DetailsComponent = () => {
   const details = useLoaderData();
   const {
+    id,
     name,
     title,
     image,
-    fee,
     teacher,
     duration,
     description,
@@ -36,10 +37,35 @@ const DetailsComponent = () => {
               {description}
             </p>
           </div>
+          <div>
+            <div>
+              <h1 className="text-white">
+                <span className="text-lime-500 flex gap-1">
+                  <FaUserTie className="h-5 text-emerald-200" />
+
+                  {teacher}
+                </span>
+              </h1>
+            </div>
+            <div>
+              <p className="text-white flex gap-1">
+                <FaClock className="text h-7" /> :
+                <span className="text-lime-500">{duration}</span>
+              </p>
+            </div>
+            <div>
+              <p className="text-white flex gap-1">
+                <FaRegCheckCircle className="text h-7" /> :
+                <span className="text-lime-500">{total_enrolled}</span>
+              </p>
+            </div>
+          </div>
 
           <div className="mt-4">
-            <Link to={``}>
-              <button className="btn-info p-2 rounded">Premium access</button>
+            <Link to={`/premium-access/${id}`}>
+              <button className="btn-info p-2 rounded focus:outline-none focus:ring focus:border-blue-500">
+                Premium access
+              </button>
             </Link>
           </div>
         </div>

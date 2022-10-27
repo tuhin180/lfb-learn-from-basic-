@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const CourseCard = ({ data }) => {
-  const { id, name, title, image, fee } = data;
+  const { id, name, image, fee } = data;
   return (
     <div>
       <div className="flex flex-col items-center justify-center w-full max-w-sm mx-auto">

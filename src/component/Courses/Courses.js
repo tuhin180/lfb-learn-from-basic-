@@ -16,7 +16,6 @@ const Courses = () => {
 
       <div className="col-span-10">
         <Outlet></Outlet>
-        {/* <AllCourses allCourses={allCourses}></AllCourses> */}
       </div>
     </div>
   );

@@ -10,13 +10,16 @@ import {
   sendPasswordResetEmail,
   signInWithPopup,
 } from "firebase/auth";
+
 import app from "../firebase/firebase.config";
 import { useEffect } from "react";
+
 export const AuthUserContext = createContext();
 const auth = getAuth(app);
 
 const UserContext = ({ children }) => {
   const [user, setUser] = useState(null);
+
   const [loading, setLoading] = useState(true);
 
   // 1.creating user
@@ -63,9 +66,12 @@ const UserContext = ({ children }) => {
     return signInWithPopup(auth, gitHubProvider);
   };
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentuser) => {
-      console.log(currentuser);
-      setUser(currentuser);
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser === null || currentUser.emailVerified) {
+        setUser(currentUser);
+      }
+      console.log(currentUser);
+      setUser(currentUser);
       setLoading(false);
     });
     return () => unsubscribe;
@@ -81,6 +87,7 @@ const UserContext = ({ children }) => {
     forgotPassword,
     googleLogin,
     gitHubLogin,
+    loading,
   };
   return (
     <AuthUserContext.Provider value={userInfo}>

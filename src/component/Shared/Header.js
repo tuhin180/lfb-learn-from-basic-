@@ -133,7 +133,7 @@ const Header = () => {
                 ) : (
                   <>
                     <Link to="/login">
-                      <FaUserTie className="text-white" />
+                      <FaUserTie title="duration" className="text-white" />
                     </Link>
                   </>
                 )}

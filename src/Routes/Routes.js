@@ -10,6 +10,8 @@ import Courses from "../component/Courses/Courses";
 import Course from "../component/Courses/Course";
 import AllCourses from "../component/Courses/AllCourses";
 import DetailsComponent from "../component/Courses/DetailsComponent";
+import PremiumAccess from "../component/PremiumAccess";
+import PrivateRoute from "./PrivateRoute";
 
 const routes = createBrowserRouter([
   {
@@ -46,6 +48,16 @@ const routes = createBrowserRouter([
         loader: ({ params }) =>
           fetch(`http://localhost:5000/course/${params.id}`),
         element: <DetailsComponent></DetailsComponent>,
+      },
+      {
+        path: "/premium-access/:id",
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/course/${params.id}`),
+        element: (
+          <PrivateRoute>
+            <PremiumAccess />
+          </PrivateRoute>
+        ),
       },
       { path: "/faq", element: <Faq></Faq> },
       { path: "/blog", element: <Blog></Blog> },

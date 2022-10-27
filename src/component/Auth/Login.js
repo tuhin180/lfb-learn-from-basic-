@@ -102,6 +102,7 @@ const Login = () => {
     gitHubLogin(githubProvider)
       .then((result) => {
         const user = result.uer;
+        navigate(from, { replace: true });
         console.log(user);
       })
       .catch((error) => {
