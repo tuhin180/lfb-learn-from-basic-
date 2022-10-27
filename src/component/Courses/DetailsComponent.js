@@ -1,6 +1,8 @@
 import React from "react";
 import { FaUserTie, FaClock, FaRegCheckCircle } from "react-icons/fa";
 import { Link, useLoaderData } from "react-router-dom";
+import Pdf from "react-to-pdf";
+const ref = React.createRef();
 
 const DetailsComponent = () => {
   const details = useLoaderData();
@@ -16,8 +18,18 @@ const DetailsComponent = () => {
   } = details;
   console.log(details);
   return (
-    <div className="mt-10">
-      <div className=" mx-auto max-w-2xl overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
+    <div className="mt-10 text-center ">
+      <Pdf targetRef={ref} filename={`${name}.pdf`}>
+        {({ toPdf }) => (
+          <button className="btn" onClick={toPdf}>
+            Generate Pdf
+          </button>
+        )}
+      </Pdf>
+      <div
+        ref={ref}
+        className=" mx-auto max-w-2xl overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800"
+      >
         <img className="object-cover w-full h-64" src={image} alt="Article" />
 
         <div className="p-6">

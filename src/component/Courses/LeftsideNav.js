@@ -5,15 +5,15 @@ import { Link } from "react-router-dom";
 const LeftsideNav = () => {
   const [courses, setCourses] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/courses")
+    fetch("https://lfc-server.vercel.app/courses")
       .then((res) => res.json())
       .then((data) => setCourses(data));
   }, []);
   return (
-    <div>
+    <div className="bg-gray-900 text-white p-4 rounded">
       <h1 className="text-xl pb-4">All courses</h1>
       {courses.map((course) => (
-        <p className="m-2" key={course.id}>
+        <p className="m-2 " key={course.id}>
           <Link to={`/courses/${course.id}`}>{course.name}</Link>
         </p>
       ))}

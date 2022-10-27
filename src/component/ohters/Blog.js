@@ -92,7 +92,7 @@ const Blog = () => {
                         is an event loop single-threaded language. It can handle
                         concurrent requests with a single thread without
                         blocking it for one request. Node.js basically works on
-                        two concept Asynchronous and Non-blocking I/O
+                        two concept Asynchronous Non-blocking I/O
                       </strong>
                     </p>
                   </div>

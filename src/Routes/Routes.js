@@ -10,7 +10,7 @@ import Courses from "../component/Courses/Courses";
 import Course from "../component/Courses/Course";
 import AllCourses from "../component/Courses/AllCourses";
 import DetailsComponent from "../component/Courses/DetailsComponent";
-import PremiumAccess from "../component/PremiumAccess";
+import PremiumAccess from "../component/Courses/PremiumAccess";
 import PrivateRoute from "./PrivateRoute";
 
 const routes = createBrowserRouter([
@@ -23,7 +23,7 @@ const routes = createBrowserRouter([
       {
         path: "/courses",
         id: "allCourses",
-        loader: () => fetch(`http://localhost:5000/course`),
+        loader: () => fetch(`https://lfc-server.vercel.app/course`),
         element: <Courses></Courses>,
         children: [
           {
@@ -33,7 +33,7 @@ const routes = createBrowserRouter([
           {
             path: ":id",
             loader: ({ params }) =>
-              fetch(`http://localhost:5000/course/${params.id}`),
+              fetch(`https://lfc-server.vercel.app/course/${params.id}`),
 
             element: <Course></Course>,
           },
@@ -46,13 +46,13 @@ const routes = createBrowserRouter([
       {
         path: "/course-details/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/course/${params.id}`),
+          fetch(`https://lfc-server.vercel.app/course/${params.id}`),
         element: <DetailsComponent></DetailsComponent>,
       },
       {
         path: "/premium-access/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/course/${params.id}`),
+          fetch(`https://lfc-server.vercel.app/course/${params.id}`),
         element: (
           <PrivateRoute>
             <PremiumAccess />

@@ -3,7 +3,7 @@ import { Link, useLoaderData } from "react-router-dom";
 
 const PremiumAccess = () => {
   const premium = useLoaderData();
-  const { name } = premium;
+  const { name, fee } = premium;
   return (
     <div>
       <section className="py-20 dark:bg-gray-800 dark:text-gray-100">
@@ -24,7 +24,7 @@ const PremiumAccess = () => {
                   <span className="text-6xl font-bold">Free</span>
                 </div>
                 <p className="mt-3 leading-relaxed dark:text-gray-400">
-                  Etiam ac convallis enim, eget euismod dolor.
+                  Basic {name}.
                 </p>
                 <ul className="flex-1 mb-6 dark:text-gray-400">
                   <li className="flex mb-2 space-x-2">
@@ -86,7 +86,7 @@ const PremiumAccess = () => {
                 <div className="space-y-2">
                   <h4 className="text-2xl font-bold">Pro</h4>
                   <span className="text-6xl font-bold">
-                    $24
+                    {fee}
                     <span className="text-sm tracking-wide">/month</span>
                   </span>
                 </div>
@@ -157,7 +157,7 @@ const PremiumAccess = () => {
                 </ul>
                 <Link
                   rel="noopener noreferrer"
-                  to=""
+                  to="/"
                   className="inline-block w-full px-5 py-3 font-bold tracking-wider text-center rounded dark:bg-gray-800 dark:text-violet-400"
                 >
                   Get Started
