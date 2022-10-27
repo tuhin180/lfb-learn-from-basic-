@@ -5,6 +5,7 @@ import logo from "../../Assets/Images/logo.png";
 import { AuthUserContext } from "../../Context/UserContext";
 import { FaUserTie } from "react-icons/fa";
 import { toast } from "react-toastify";
+import Toggle from "../Toggle";
 
 const Header = () => {
   const { user, logOut } = useContext(AuthUserContext);
@@ -139,7 +140,7 @@ const Header = () => {
                 )}
               </li>
 
-              <input type="checkbox" className=" ml-2 toggle" />
+              <Toggle />
             </ul>
             <div className="lg:hidden">
               <button
