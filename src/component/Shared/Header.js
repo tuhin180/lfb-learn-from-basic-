@@ -84,7 +84,7 @@ const Header = () => {
                 <>
                   <li>
                     <Link
-                      onBlur={handleSignOut}
+                      onClick={handleSignOut}
                       to="/"
                       className="inline-flex items-center justify-center h-12 px-4 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
                       aria-label="Sign out"
@@ -124,9 +124,9 @@ const Header = () => {
                     <Link>
                       <img
                         className="rounded h-6"
-                        src={logo}
+                        src={user?.photoURL}
                         alt="user profile"
-                        title="tuhin"
+                        title={user?.displayName}
                       />
                     </Link>
                   </>

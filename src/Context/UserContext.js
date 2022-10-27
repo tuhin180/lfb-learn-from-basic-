@@ -8,6 +8,7 @@ import {
   updateProfile,
   sendEmailVerification,
   sendPasswordResetEmail,
+  signInWithPopup,
 } from "firebase/auth";
 import app from "../firebase/firebase.config";
 import { useEffect } from "react";
@@ -30,7 +31,7 @@ const UserContext = ({ children }) => {
 
   // 3:log Out
   const logOut = () => {
-    signOut(auth);
+    return signOut(auth);
   };
 
   // 4.update profile
@@ -52,7 +53,15 @@ const UserContext = ({ children }) => {
   };
 
   // 7.google log in
-  const googleLogin = () => {};
+  const googleLogin = (googleProvider) => {
+    return signInWithPopup(auth, googleProvider);
+  };
+
+  // .8 github log in
+  const gitHubLogin = (gitHubProvider) => {
+    setLoading(true);
+    return signInWithPopup(auth, gitHubProvider);
+  };
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentuser) => {
       console.log(currentuser);
@@ -70,6 +79,8 @@ const UserContext = ({ children }) => {
     userProfile,
     verifyEmail,
     forgotPassword,
+    googleLogin,
+    gitHubLogin,
   };
   return (
     <AuthUserContext.Provider value={userInfo}>

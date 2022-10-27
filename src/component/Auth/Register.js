@@ -1,18 +1,31 @@
 import React, { useContext } from "react";
+import { GoogleAuthProvider, GithubAuthProvider } from "firebase/auth";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AuthUserContext } from "../../Context/UserContext";
 
 const Register = () => {
-  const { createUserWithEmail, userProfile, verifyEmail } =
-    useContext(AuthUserContext);
+  const googleProvider = new GoogleAuthProvider();
+  const githubProvider = new GithubAuthProvider();
+
+  const {
+    createUserWithEmail,
+    userProfile,
+    verifyEmail,
+    googleLogin,
+    gitHubLogin,
+  } = useContext(AuthUserContext);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [image, setImage] = useState("");
   const [errors, setErrors] = useState("");
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/login";
 
   const handleName = (e) => {
     setName(e.target.value);
@@ -49,6 +62,7 @@ const Register = () => {
             verifyEmail()
               .then(() => {
                 // Email verification sent!
+                navigate(from, { replace: true });
                 toast.success(
                   "email verification link has been sent to yout email, please verify your email.",
                   { autoClose: 4000 }
@@ -74,6 +88,32 @@ const Register = () => {
         setErrors(errorMessage);
         toast.error(errors, { autoClose: 4000 });
         // ..
+      });
+  };
+  // 3.google log in function
+  const handleGoogleLogin = () => {
+    googleLogin(googleProvider)
+      .then((result) => {
+        const user = result.user;
+        navigate(from, { replace: true });
+        console.log(user);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        toast.error(errorMessage, { autoClose: 4000 });
+      });
+  };
+
+  // 4.github login function
+  const handleGithubLogin = () => {
+    gitHubLogin(githubProvider)
+      .then((result) => {
+        const user = result.uer;
+        console.log(user);
+      })
+      .catch((error) => {
+        toast.error(error.errorMessage, { autoClose: 4000 });
       });
   };
   return (
@@ -164,7 +204,11 @@ const Register = () => {
           <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
         </div>
         <div className="flex justify-center space-x-4">
-          <button aria-label="Log in with Google" className="p-3 rounded-sm">
+          <button
+            onClick={handleGoogleLogin}
+            aria-label="Log in with Google"
+            className="p-3 rounded-sm"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 32 32"
@@ -174,7 +218,11 @@ const Register = () => {
             </svg>
           </button>
 
-          <button aria-label="Log in with GitHub" className="p-3 rounded-sm">
+          <button
+            onClick={handleGithubLogin}
+            aria-label="Log in with GitHub"
+            className="p-3 rounded-sm"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 32 32"
