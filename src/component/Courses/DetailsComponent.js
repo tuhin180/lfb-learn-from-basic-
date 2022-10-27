@@ -28,7 +28,7 @@ const DetailsComponent = () => {
             <Link
               href="#"
               className="block mt-2 text-2xl font-semibold text-gray-800 transition-colors duration-300 transform dark:text-white hover:text-gray-600 hover:underline"
-              tabindex="0"
+              tabIndex="0"
               role="link"
             >
               {title}

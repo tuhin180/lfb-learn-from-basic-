@@ -4,7 +4,7 @@ import CourseCard from "./CourseCard";
 
 const Course = () => {
   const courseData = useLoaderData();
-  console.log(courseData);
+
   return (
     <div>
       <CourseCard data={courseData}></CourseCard>
